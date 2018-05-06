@@ -1,0 +1,35 @@
+<div data-role="view" data-title="Add a new Transaction" data-layout="editTransactionsLayout" data-model="app.editTransactions" data-show="app.editTransactions.onShow" data-after-show="app.editTransactions.afterShow" id="editTransactionsScreen" class="screen">
+
+
+	<!-- START_CUSTOM_CODE
+		
+
+		-->
+	<!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+	<div class="content-wrapper">
+		<div class="inner-wrapper">
+			
+			
+			<form id="transEditForm">
+				<div>
+					<input type="text" class="k-textbox long" data-bind="value:locale" />
+
+					<input type="date" data-role="datepicker" class="k-textbox" data-bind="value:transDate" />
+					<input type="text" class="k-textbox" data-bind="value:category" />
+					<input type="text" class="k-textbox" data-bind="value:amount" />
+				</div>
+				<div class="clear center">
+					
+					<button class="add-new-trans km-button" >add new</button>
+					<button class="update-trans km-button">update</button>
+				</div>
+			</form>
+		</div>
+		
+		</div>
+		<!-- END_CUSTOM_CODE_home -->
+	</div>
+<script type="text/x-kendo-template" id="transListTemplate">
+	
+	
+</script>

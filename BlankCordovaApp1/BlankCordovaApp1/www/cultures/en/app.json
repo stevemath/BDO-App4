@@ -1,0 +1,23 @@
+{
+  "_app": {
+    "navigationMore": "More",
+    "showMoreTitle": "Show More",
+    "qrCodeScan": "Scan"
+  },
+  "home": {
+    "title": "Home"
+  },
+
+  "login": {
+    "title": "Sign In"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "strTotal": "Total"
+  },
+  "editTransactions": {
+    "title": "Add/Edit Transactions"
+  }
+
+
+}
