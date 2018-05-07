@@ -96,7 +96,7 @@
   <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
     <string>need photo library access to get receipt images</string>
   </edit-config>
-  <plugin name="cordova-plugin-camera" spec="~3.0.0" >
+  <plugin name="cordova-plugin-camera" spec="~2.1.1" >
 
     <variable name="CAMERA_USAGE_DESCRIPTION" value="BDO wants to access your camera" />
     <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="BDO wants to access your camera to upload images" />
