@@ -85,12 +85,12 @@
 
     if (window.cordova) {
         document.addEventListener('deviceready', function () {
-            alert("device ready")
+           // alert("device ready")
             if (navigator.camera) {
-                alert("camera found")
+               // alert("camera found")
             } else {
-                alert(navigator.camera)
-                alert(navigator.geolocation)
+                //alert(navigator.camera)
+                //alert(navigator.geolocation)
             }
         
             if (navigator && navigator.splashscreen) {

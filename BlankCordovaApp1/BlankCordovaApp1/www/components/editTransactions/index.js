@@ -85,19 +85,26 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
         })
    },
+  
     getReceipt: function () {
 
         console.log("get receipt");
-        alert("start camera")
+       // alert("start camera")
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            encodingType: Camera.EncodingType.JPEG,
+            mediaType: Camera.MediaType.PICTURE,
+            allowEdit: true,
+            correctOrientation: true
         });
-
+        
         function onSuccess(imageURI) {
-            var image = document.getElementById('myImage');
-            image.src = imageURI;
-            alert(image.src)
+            console.log("got img");
+           // alert("got img")
+            $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
+           // alert(imageURI)
         }
 
         function onFail(message) {
