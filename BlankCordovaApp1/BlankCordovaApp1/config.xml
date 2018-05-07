@@ -106,11 +106,11 @@
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
       <string>The app needs access to the camera</string>
     </edit-config>
-    ...
+   
   </platform>
  
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
-  <engine name="android" spec="~5.2.1" />
+  <engine name="android" spec="~6.3.0" />
   <engine name="ios" spec="4.2.0" />
   <engine name="windows" spec="4.4.2" />
 </widget>
