@@ -1,7 +1,27 @@
 {
-    "name": "BlankCordovaApp1",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
-    }
+  "name": "BlankCordovaApp1",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "cordova-android": "^6.3.0",
+    "cordova-ios": "~4.3.1",
+    "cordova-windows": "4.4.2",
+    "cordova-plugin-whitelist": "1.2.2",
+    "cordova-plugin-geolocation": "~4.0.1",
+    "cordova-plugin-vibration": "~3.1.0",
+    "cordova-plugin-camera": "~4.0.3"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-camera": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-vibration": {}
+    },
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  }
 }
