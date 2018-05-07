@@ -78,6 +78,12 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
             app.mobileApp.navigate("components/transactions/view.html");
 
         })
+
+        $(".get-receipt").off();
+        $(".get-receipt").on("click", function () {
+            app.editTransactions.getReceipt()
+
+        })
    },
     getReceipt: function () {
 

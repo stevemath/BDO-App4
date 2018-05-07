@@ -3,7 +3,6 @@
   <name>BlankCordovaApp1</name>
   <description>BDO Budget Demo</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Elite Digital Marketing</author>
-  <vs:is-from-base-template>true</vs:is-from-base-template>
   <vs:template-name>BlankJS</vs:template-name>
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <engine name="android" spec="5.2.1" />
@@ -108,11 +107,9 @@
   <plugin name="cordova-plugin-camera" spec="~4.0.3" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
   <plugin name="cordova-plugin-vibration" spec="~3.1.0" />
-
   <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
     <string>need camera access to take pictures of receipts</string>
   </edit-config>
-
   <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
     <string>need photo library access to get receipt images</string>
   </edit-config>
