@@ -82,7 +82,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
     getReceipt: function () {
 
         console.log("get receipt");
-
+        alert("start camera")
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 50,
             destinationType: Camera.DestinationType.FILE_URI
