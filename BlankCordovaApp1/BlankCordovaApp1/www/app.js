@@ -90,6 +90,7 @@
                 alert("camera found")
             } else {
                 alert(navigator.camera)
+                alert(navigator.geolocation)
             }
         
             if (navigator && navigator.splashscreen) {
