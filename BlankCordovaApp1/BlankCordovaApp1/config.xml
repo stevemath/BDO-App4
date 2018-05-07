@@ -108,4 +108,12 @@
   <plugin name="cordova-plugin-camera" spec="~4.0.3" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
   <plugin name="cordova-plugin-vibration" spec="~3.1.0" />
+
+  <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need camera access to take pictures of receipts</string>
+  </edit-config>
+
+  <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need photo library access to get receipt images</string>
+  </edit-config>
 </widget>

@@ -78,7 +78,26 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
             app.mobileApp.navigate("components/transactions/view.html");
 
         })
-    },
+   },
+    getReceipt: function () {
+
+        console.log("get receipt");
+
+        navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI
+        });
+
+        function onSuccess(imageURI) {
+            var image = document.getElementById('myImage');
+            image.src = imageURI;
+            alert(image.src)
+        }
+
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        }
+    }
    
 });
 app.localization.registerView('editTransactions');
