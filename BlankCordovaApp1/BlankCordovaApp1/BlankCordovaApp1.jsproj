@@ -74,7 +74,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties project_1json__JSONSchema="http://www.asp.net/media/4878834/project.json" />
+      <UserProperties />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
@@ -85,6 +85,9 @@
     <Content Include="**\**" Exclude="**\platforms\**;**\bin\**;**\bld\**;**\node_modules\**;**\simulation\**;**\plugins\**;.gitignore;BlankCordovaApp1.*" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="config - Copy.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Update="config.xml">
       <SubType>Designer</SubType>
     </Content>
