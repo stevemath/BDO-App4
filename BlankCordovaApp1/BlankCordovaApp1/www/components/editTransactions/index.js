@@ -85,7 +85,178 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
         })
    },
-  
+    getSASToken: function () {
+
+        const account = {
+            name: "bdoauth8fdb",
+            // name:"dgpo7itjj6n3yazfunctions",
+            // sas: "?sv=2017-07-29&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-04-21T22:56:20Z&st=2018-04-18T14:56:20Z&spr=https,http&sig=NS%2Bj9Xev22DhVAjg%2BCzYAUARAOKghqTmhAUJ2F71qU8%3D"
+        };
+
+        var uData = { container: "testcontainer" }
+        var blobUri = 'https://' + account.name + '.blob.core.windows.net';
+        var blobService;// = AzureStorage.Blob.createBlobServiceWithSas(blobUri, account.sas);
+        $.ajax({
+            method: "POST",
+            url: "https://sastokens.azurewebsites.net/api/GetSasToken-Node?container=testcontainer&permissions=racwdl&code=jhpPaK9UBDOOJmOPDDwa6kvaw3X05YObhCOi8qJfJV95N8mhVlPwVA==",
+            data: JSON.stringify(uData),
+            success: function (data) {
+                console.log(data);
+                blobService = AzureStorage.Blob.createBlobServiceWithSas(blobUri, "?" + data.token);
+
+
+                // const file = document.getElementById('fileinput').files[0];
+                //console.log(file);
+                var the_file = new Blob([imguri], { type: 'image/jpeg' });
+
+
+
+                //$.ajax({
+
+                //    url:blobUri + "/" + uData.container + "/" + the_file,
+                //})
+
+                //  readImage(imguri);
+
+
+                //function readImage(capturedFile) {
+
+                //    console.log(imguri)
+                //    console.log(the_file)
+                //    capturedFile = capturedFile.replace("blob:", "");
+                //    //var localFileSytemUrl = capturedFile.fullPath;
+
+                //    var localFileSytemUrl = capturedFile;
+                //    if (kendo.support.mobileOS == 'iOS') {
+                //        // We need the file:/ prefix on an iOS device.
+                //        localFileSytemUrl = "file://" + localFileSytemUrl;
+                //    }
+                //    console.log(localFileSytemUrl)
+                //    window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
+                //        console.log(fileEntry)
+                //        fileEntry.file(function (file) {
+                //            // We need a FileReader to read the captured file.
+                //            var reader = new FileReader();
+                //            console.log(file)
+                //            reader.onloadend = readCompleted;
+                //            reader.onerror = fail;
+
+                //            // Read the captured file into a byte array.
+                //            // This function is not currently supported on Windows Phone.
+                //            reader.readAsArrayBuffer(file);
+                //        }, fail);
+                //    });
+                //};
+
+
+                //var readCompleted = function (evt) {
+                //    if (evt.target.readyState == FileReader.DONE) {
+
+                //        // The binary data is the result.
+                //        var requestData = evt.target.result;
+
+                //        // Build the request URI with the SAS, which gives us permissions to upload.
+                //        var uriWithAccess = blobUri + "?" + data.token;
+                //        var xhr = new XMLHttpRequest();
+                //        xhr.onerror = fail;
+                //        xhr.onloadend = uploadCompleted;
+                //        xhr.open("PUT", uriWithAccess);
+                //        xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
+                //        xhr.setRequestHeader('x-ms-blob-content-type', 'image/jpeg');
+                //        xhr.send(requestData);
+                //    }
+                //}
+
+                //blobService.createBlockBlobFromBrowserFile('testcontainer',
+                //   "test.jpg",
+                //   imguri,
+                //    (error, result) => {
+                //        if (error) {
+                //            console.log(error)
+                //            // Handle blob error
+                //        } else {
+                //            console.log('Upload is successful');
+                //        }
+                //    });
+
+                //            blobService.createBlobSnapshot('testcontainer',
+                //                imguri,
+
+                //(error, result) => {
+                //    if (error) {
+                //        // Handle blob error
+                //        console.log(error)
+                //    } else {
+                //        console.log('Upload is successful');
+                //        console.log(result);
+                //    }
+                //});
+
+
+
+            },
+
+
+        })
+
+    },
+    testBlob: function (imguri) {
+
+        console.log(imguri);
+       // cFile = imguri.replace("blob:", "");
+       // cFile = imguri.replace("http", "file");
+
+       // console.log(cordova.file.dataDirectory)
+
+        window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+        navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
+            window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, function () {
+                console.log("success")
+                console.log(window.requestFileSystem);
+
+                window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
+                    console.log("local")
+                    console.log(fileEntry)
+
+                })
+            }, function () { console.log("error") });
+                console.log("file system")
+            }, function (e) {
+                console.log('Error', e);
+            });
+        //        window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, onFileSystemSuccess.bind(this), this.errorHandler);
+        //if (isPhoneGapApp) {
+        //    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess.bind(this), this.errorHandler);
+        //}
+        //else {
+        //    navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
+        //        window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, onFileSystemSuccess.bind(this), this.errorHandler);
+        //        console.log("file system")
+        //    }, function (e) {
+        //        console.log('Error', e);
+        //    });
+        //}
+
+
+        setInterval(function () {
+
+            console.log("test");
+ 
+            window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
+                       fileEntry.file(function (file) {
+                           console.log(file);
+                           alert(file.name)
+                       })
+                   })
+
+        }, 200)
+           
+       // }, 200);
+       
+      
+
+
+    },
     getReceipt: function () {
 
         console.log("get receipt");
@@ -105,6 +276,9 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
            // alert("got img")
             $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
            // alert(imageURI)
+            app.editTransactions.testBlob(imageURI);
+         
+
         }
 
         function onFail(message) {

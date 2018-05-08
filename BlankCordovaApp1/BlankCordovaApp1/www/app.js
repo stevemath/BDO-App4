@@ -86,12 +86,14 @@
     if (window.cordova) {
         document.addEventListener('deviceready', function () {
            // alert("device ready")
-            if (navigator.camera) {
+           // if (navigator.camera) {
                // alert("camera found")
-            } else {
+           // } else {
                 //alert(navigator.camera)
                 //alert(navigator.geolocation)
-            }
+            //}
+
+
         
             if (navigator && navigator.splashscreen) {
                 navigator.splashscreen.hide();
