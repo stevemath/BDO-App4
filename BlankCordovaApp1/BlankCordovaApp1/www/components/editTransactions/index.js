@@ -201,8 +201,25 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                // var imgstr = dataURItoBlob(imguri)
                 alert("got img");
                 alert(imguri)
-                createNewFileEntry(imguri)
+                //createNewFileEntry(imguri)
 
+                getFileEntry(imguri);
+
+                function getFileEntry(imgUri) {
+                    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+
+                        // Do something with the FileEntry object, like write to it, upload it, etc.
+                        // writeFile(fileEntry, imgUri);
+                        alert("got file")
+                        console.log("got file: " + fileEntry.fullPath);
+                        // displayFileData(fileEntry.nativeURL, "Native URL");
+
+                    }, function () {
+                        // If don't get the FileEntry (which may happen when testing
+                        // on some emulators), copy to a new FileEntry.
+                        createNewFileEntry(imgUri);
+                    });
+                }
                 //blobService.createBlockBlobFromBrowserFile('testcontainer',
                 //   "test3.jpg",
                 //    imguri,
@@ -218,6 +235,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
 
                 function createNewFileEntry(imgUri) {
+                    alert("create file entry")
                     window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
                         console.log("resolved");
                         alert("resolved")
