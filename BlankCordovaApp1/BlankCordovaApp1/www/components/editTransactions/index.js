@@ -199,6 +199,8 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
 
                // var imgstr = dataURItoBlob(imguri)
+                alert("got img");
+                alert(imguri)
                 createNewFileEntry(imguri)
 
                 //blobService.createBlockBlobFromBrowserFile('testcontainer',
