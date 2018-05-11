@@ -320,7 +320,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
     getReceipt: function () {
 
         console.log("get receipt");
-       // alert("start camera")
+        alert("start camera")
        
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 30,
@@ -337,7 +337,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
            // alert("got img")
            // $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
            // alert(imageURI)
-            app.editTransactions.testBlob(imageURI);
+          //  app.editTransactions.testBlob(imageURI);
             app.editTransactions.getSASToken(imageURI);
 
         }
