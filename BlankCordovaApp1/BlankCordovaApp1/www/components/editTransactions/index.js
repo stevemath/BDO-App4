@@ -80,7 +80,8 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         })
 
         $(".get-receipt").off();
-        $(".get-receipt").on("click", function () {
+        $(".get-receipt").on("click", function (e) {
+            e.preventDefault();
             app.editTransactions.getReceipt()
 
         })
@@ -178,13 +179,13 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
                 //f.name = "test2.jpg";
                 //f.localURL = imguri;
-                if (window.File && window.FileReader && window.FileList && window.Blob) {
-                    console.log("file api supported");
-                } else {
-                    console.log('The File APIs are not fully supported in this browser.');
-                }
-                var reader = new FileReader();
-                var f;
+                //if (window.File && window.FileReader && window.FileList && window.Blob) {
+                //    console.log("file api supported");
+                //} else {
+                //    console.log('The File APIs are not fully supported in this browser.');
+                //}
+                //var reader = new FileReader();
+                //var f;
 
                
                //$(reader).on("load", function () {
@@ -225,6 +226,19 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                             // writeFile(fileEntry, imgUri);
                             console.log("got file: " + fileEntry.fullPath);
                             // displayFileData(fileEntry.fullPath, "File copied to");
+
+                             blobService.createBlockBlobFromBrowserFile('testcontainer',
+                   "test4.jpg",
+                                 fileEntry,
+                    { contentSettings: { contentType: "image/jpeg" } },
+                    (error, result) => {
+                        if (error) {
+                            console.log(error)
+                            // Handle blob error
+                        } else {
+                            console.log('Upload is successful');
+                        }
+                    });
 
                         }, onErrorCreateFile);
 
