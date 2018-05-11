@@ -230,13 +230,15 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                              blobService.createBlockBlobFromBrowserFile('testcontainer',
                    "test4.jpg",
                                  fileEntry,
-                    { contentSettings: { contentType: "image/jpeg" } },
+                   // { contentSettings: { contentType: "image/jpeg" } },
                     (error, result) => {
                         if (error) {
                             console.log(error)
                             // Handle blob error
+                            alert(error)
                         } else {
                             console.log('Upload is successful');
+                            alert("uploaded")
                         }
                     });
 
