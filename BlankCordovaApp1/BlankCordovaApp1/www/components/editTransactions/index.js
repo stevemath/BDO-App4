@@ -84,8 +84,14 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
             app.editTransactions.getReceipt()
 
         })
+
+
+        $(".get-file").on("click", function () {
+           
+
+        })
    },
-    getSASToken: function () {
+    getSASToken: function (imguri) {
 
         const account = {
             name: "bdoauth8fdb",
@@ -95,7 +101,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
         var uData = { container: "testcontainer" }
         var blobUri = 'https://' + account.name + '.blob.core.windows.net';
-        var blobService;// = AzureStorage.Blob.createBlobServiceWithSas(blobUri, account.sas);
+        var blobService = AzureStorage.Blob.createBlobServiceWithSas(blobUri, account.sas);
         $.ajax({
             method: "POST",
             url: "https://sastokens.azurewebsites.net/api/GetSasToken-Node?container=testcontainer&permissions=racwdl&code=jhpPaK9UBDOOJmOPDDwa6kvaw3X05YObhCOi8qJfJV95N8mhVlPwVA==",
@@ -107,7 +113,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
                 // const file = document.getElementById('fileinput').files[0];
                 //console.log(file);
-                var the_file = new Blob([imguri], { type: 'image/jpeg' });
+               // var the_file = new Blob([imguri], { type: 'image/jpeg' });
 
 
 
@@ -167,9 +173,37 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                 //    }
                 //}
 
+
+                //var f = new File();
+
+                //f.name = "test2.jpg";
+                //f.localURL = imguri;
+                if (window.File && window.FileReader && window.FileList && window.Blob) {
+                    console.log("file api supported");
+                } else {
+                    console.log('The File APIs are not fully supported in this browser.');
+                }
+                var reader = new FileReader();
+                var f;
+
+               
+               //$(reader).on("load", function () {
+               //     f = reader.result;
+               // }, false);
+
+               // if (imguri) {
+               //     reader.readAsDataURL(imguri);
+               // }
+               // console.log(f);
+
+
+               // var imgstr = dataURItoBlob(imguri)
+                createNewFileEntry(imguri)
+
                 //blobService.createBlockBlobFromBrowserFile('testcontainer',
-                //   "test.jpg",
-                //   imguri,
+                //   "test3.jpg",
+                //    imguri,
+                //    { contentSettings: { contentType: "image/jpeg" } },
                 //    (error, result) => {
                 //        if (error) {
                 //            console.log(error)
@@ -178,6 +212,24 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                 //            console.log('Upload is successful');
                 //        }
                 //    });
+
+
+                function createNewFileEntry(imgUri) {
+                    window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
+                        console.log("resolved");
+                        alert("resolved")
+                        // JPEG file
+                        dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
+
+                            // Do something with it, like write to it, upload it, etc.
+                            // writeFile(fileEntry, imgUri);
+                            console.log("got file: " + fileEntry.fullPath);
+                            // displayFileData(fileEntry.fullPath, "File copied to");
+
+                        }, onErrorCreateFile);
+
+                    }, function (e) { console.log(e); alert("resolve error")});
+                }
 
                 //            blobService.createBlobSnapshot('testcontainer',
                 //                imguri,
@@ -202,28 +254,33 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
     },
     testBlob: function (imguri) {
 
-        console.log(imguri);
+      //  console.log(imguri);
+
+
+
        // cFile = imguri.replace("blob:", "");
        // cFile = imguri.replace("http", "file");
 
        // console.log(cordova.file.dataDirectory)
 
-        window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-        navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
-            window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, function () {
-                console.log("success")
-                console.log(window.requestFileSystem);
+        //window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+        //navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
+        //    window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, function () {
+        //        console.log("success")
+        //        console.log(window.requestFileSystem);
 
-                window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
-                    console.log("local")
-                    console.log(fileEntry)
+        //        window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
+        //            console.log("local")
+        //            console.log(fileEntry)
 
-                })
-            }, function () { console.log("error") });
-                console.log("file system")
-            }, function (e) {
-                console.log('Error', e);
-            });
+        //        })
+        //    }, function () { console.log("error") });
+        //        console.log("file system")
+        //    }, function (e) {
+        //        console.log('Error', e);
+        //    });
+
+
         //        window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, onFileSystemSuccess.bind(this), this.errorHandler);
         //if (isPhoneGapApp) {
         //    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess.bind(this), this.errorHandler);
@@ -238,18 +295,21 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         //}
 
 
-        setInterval(function () {
+        //setInterval(function () {
 
-            console.log("test");
+        //    console.log("test");
  
-            window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
-                       fileEntry.file(function (file) {
-                           console.log(file);
-                           alert(file.name)
-                       })
-                   })
+        //    window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
+        //        fileEntry.file(function (file) {
+        //            console.log(file);
+        //            alert(file.name)
+        //        })
+        //    }), function (e) {
+        //        console.log(e)
+        //        console.log("error?")
+        //    }
 
-        }, 200)
+        //}, 200)
            
        // }, 200);
        
@@ -261,8 +321,9 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
 
         console.log("get receipt");
        // alert("start camera")
+       
         navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
+            quality: 30,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             encodingType: Camera.EncodingType.JPEG,
@@ -274,14 +335,15 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         function onSuccess(imageURI) {
             console.log("got img");
            // alert("got img")
-            $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
+           // $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
            // alert(imageURI)
             app.editTransactions.testBlob(imageURI);
-         
+            app.editTransactions.getSASToken(imageURI);
 
         }
 
         function onFail(message) {
+            console.log('Failed because: ' + message);
             alert('Failed because: ' + message);
         }
     }
