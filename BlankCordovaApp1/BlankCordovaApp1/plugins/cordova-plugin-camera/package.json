@@ -2,55 +2,55 @@
   "_args": [
     [
       {
-        "raw": "cordova-plugin-camera@3.0.0",
+        "raw": "cordova-plugin-camera@2.4.1",
         "scope": null,
         "escapedName": "cordova-plugin-camera",
         "name": "cordova-plugin-camera",
-        "rawSpec": "3.0.0",
-        "spec": "3.0.0",
+        "rawSpec": "2.4.1",
+        "spec": "2.4.1",
         "type": "version"
       },
       "C:\\Users\\evets\\source\\repos\\BDO-App4\\BlankCordovaApp1\\BlankCordovaApp1"
     ]
   ],
-  "_from": "cordova-plugin-camera@3.0.0",
-  "_id": "cordova-plugin-camera@3.0.0",
+  "_from": "cordova-plugin-camera@2.4.1",
+  "_id": "cordova-plugin-camera@2.4.1",
   "_inCache": true,
   "_location": "/cordova-plugin-camera",
-  "_nodeVersion": "6.6.0",
+  "_nodeVersion": "6.10.1",
   "_npmOperationalInternal": {
-    "host": "s3://npm-registry-packages",
-    "tmp": "tmp/cordova-plugin-camera-3.0.0.tgz_1510361659722_0.12280122633092105"
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-camera-2.4.1.tgz_1493685628652_0.28620520583353937"
   },
   "_npmUser": {
-    "name": "stevegill",
-    "email": "stevengill97@gmail.com"
+    "name": "filmaj",
+    "email": "maj.fil@gmail.com"
   },
-  "_npmVersion": "4.6.1",
+  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "cordova-plugin-camera@3.0.0",
+    "raw": "cordova-plugin-camera@2.4.1",
     "scope": null,
     "escapedName": "cordova-plugin-camera",
     "name": "cordova-plugin-camera",
-    "rawSpec": "3.0.0",
-    "spec": "3.0.0",
+    "rawSpec": "2.4.1",
+    "spec": "2.4.1",
     "type": "version"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-3.0.0.tgz",
-  "_shasum": "9212ff0e2a211ee840d8a83f051d37d0dec0bd1f",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-2.4.1.tgz",
+  "_shasum": "195e34e12db64f1c49e764f7d4e3f261aa3d94c1",
   "_shrinkwrap": null,
-  "_spec": "cordova-plugin-camera@3.0.0",
+  "_spec": "cordova-plugin-camera@2.4.1",
   "_where": "C:\\Users\\evets\\source\\repos\\BDO-App4\\BlankCordovaApp1\\BlankCordovaApp1",
   "author": {
     "name": "Apache Software Foundation"
   },
   "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
+    "url": "https://github.com/apache/cordova-plugin-camera/issues"
   },
   "cordova": {
     "id": "cordova-plugin-camera",
@@ -65,35 +65,25 @@
       "wp8",
       "windows8",
       "browser",
-      "windows",
-      "osx"
+      "windows"
     ]
   },
   "dependencies": {},
   "description": "Cordova Camera Plugin",
   "devDependencies": {
     "dmd-plugin-cordova-plugin": "^0.1.0",
-    "eslint": "^4.3.0",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-node": "^5.0.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.10.1",
-    "jsdoc-to-markdown": "^1.2.0"
+    "jsdoc-to-markdown": "^1.2.0",
+    "jshint": "^2.6.0"
   },
   "directories": {},
   "dist": {
-    "shasum": "9212ff0e2a211ee840d8a83f051d37d0dec0bd1f",
-    "tarball": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-3.0.0.tgz"
+    "shasum": "195e34e12db64f1c49e764f7d4e3f261aa3d94c1",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-2.4.1.tgz"
   },
   "engines": {
     "cordovaDependencies": {
       "3.0.0": {
-        "cordova-android": ">=6.3.0"
-      },
-      "4.0.0": {
         "cordova": ">100"
       }
     }
@@ -113,8 +103,7 @@
     "cordova-wp8",
     "cordova-windows8",
     "cordova-browser",
-    "cordova-windows",
-    "cordova-osx"
+    "cordova-windows"
   ],
   "license": "Apache-2.0",
   "maintainers": [
@@ -163,11 +152,11 @@
     "url": "git+https://github.com/apache/cordova-plugin-camera.git"
   },
   "scripts": {
-    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests",
     "gen-docs": "jsdoc2md --template \"jsdoc2md/TEMPLATE.md\" \"www/**/*.js\" --plugin \"dmd-plugin-cordova-plugin\" > README.md",
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests",
     "precommit": "npm run gen-docs && git add README.md",
-    "test": "npm run eslint"
+    "test": "npm run jshint"
   },
   "types": "./types/index.d.ts",
-  "version": "3.0.0"
+  "version": "2.4.1"
 }
