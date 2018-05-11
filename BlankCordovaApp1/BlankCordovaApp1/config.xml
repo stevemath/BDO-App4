@@ -102,4 +102,5 @@
     <engine name="windows" spec="4.4.2" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+  <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
 </widget>
