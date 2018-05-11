@@ -96,12 +96,12 @@
   <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
     <string>need photo library access to get receipt images</string>
   </edit-config>
-  <plugin name="cordova-plugin-camera" spec="~4.0.3" />
+  <plugin name="cordova-plugin-camera" spec="~3.0.0" />
   <vs:toolsetVersion>6.3.1</vs:toolsetVersion>
   <engine name="android" spec="~5.2.1" />
   <engine name="ios" spec="4.2.0" />
   <engine name="windows" spec="4.4.2" />
   <plugin name="cordova-plugin-file" spec="~6.0.1" />
 
- 
+  <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
 </widget>
