@@ -203,7 +203,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                 alert(imguri)
                 //createNewFileEntry(imguri)
 
-                getFileEntry(imguri);
+              //  getFileEntry(imguri);
 
                 function getFileEntry(imgUri) {
                     window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
@@ -214,24 +214,41 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                         console.log("got file: " + fileEntry.fullPath);
                         // displayFileData(fileEntry.nativeURL, "Native URL");
 
+                        blobService.createBlockBlobFromBrowserFile('testcontainer',
+                            "test4.jpg",
+                            fileEntry,
+                            // { contentSettings: { contentType: "image/jpeg" } },
+                            (error, result) => {
+                                if (error) {
+                                    console.log(error)
+                                    // Handle blob error
+                                    alert(error)
+                                } else {
+                                    console.log('Upload is successful');
+                                    alert("uploaded")
+                                }
+                            });
+
                     }, function () {
                         // If don't get the FileEntry (which may happen when testing
                         // on some emulators), copy to a new FileEntry.
                         createNewFileEntry(imgUri);
                     });
                 }
-                //blobService.createBlockBlobFromBrowserFile('testcontainer',
-                //   "test3.jpg",
-                //    imguri,
-                //    { contentSettings: { contentType: "image/jpeg" } },
-                //    (error, result) => {
-                //        if (error) {
-                //            console.log(error)
-                //            // Handle blob error
-                //        } else {
-                //            console.log('Upload is successful');
-                //        }
-                //    });
+                blobService.createBlockBlobFromText('testcontainer',
+                   "test5.jpg",
+                    imguri,
+                    { contentSettings: { contentType: "image/jpeg" } },
+                    (error, result) => {
+                        if (error) {
+                            console.log(error)
+                            alert(error)
+                            // Handle blob error
+                        } else {
+                            console.log('Upload is successful');
+                            alert("image uploaded")
+                        }
+                    });
 
 
                 function createNewFileEntry(imgUri) {
@@ -360,11 +377,11 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
        
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 30,
-            destinationType: Camera.DestinationType.FILE_URI,
+            destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
             encodingType: Camera.EncodingType.JPEG,
             mediaType: Camera.MediaType.PICTURE,
-            allowEdit: true,
+            allowEdit: false,
             correctOrientation: true
         });
         
