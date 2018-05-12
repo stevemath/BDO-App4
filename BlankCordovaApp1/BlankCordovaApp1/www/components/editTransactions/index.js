@@ -112,95 +112,9 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                 blobService = AzureStorage.Blob.createBlobServiceWithSas(blobUri, "?" + data.token);
 
 
-                // const file = document.getElementById('fileinput').files[0];
-                //console.log(file);
-               // var the_file = new Blob([imguri], { type: 'image/jpeg' });
-
-
-
-                //$.ajax({
-
-                //    url:blobUri + "/" + uData.container + "/" + the_file,
-                //})
-
-                //  readImage(imguri);
-
-
-                //function readImage(capturedFile) {
-
-                //    console.log(imguri)
-                //    console.log(the_file)
-                //    capturedFile = capturedFile.replace("blob:", "");
-                //    //var localFileSytemUrl = capturedFile.fullPath;
-
-                //    var localFileSytemUrl = capturedFile;
-                //    if (kendo.support.mobileOS == 'iOS') {
-                //        // We need the file:/ prefix on an iOS device.
-                //        localFileSytemUrl = "file://" + localFileSytemUrl;
-                //    }
-                //    console.log(localFileSytemUrl)
-                //    window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
-                //        console.log(fileEntry)
-                //        fileEntry.file(function (file) {
-                //            // We need a FileReader to read the captured file.
-                //            var reader = new FileReader();
-                //            console.log(file)
-                //            reader.onloadend = readCompleted;
-                //            reader.onerror = fail;
-
-                //            // Read the captured file into a byte array.
-                //            // This function is not currently supported on Windows Phone.
-                //            reader.readAsArrayBuffer(file);
-                //        }, fail);
-                //    });
-                //};
-
-
-                //var readCompleted = function (evt) {
-                //    if (evt.target.readyState == FileReader.DONE) {
-
-                //        // The binary data is the result.
-                //        var requestData = evt.target.result;
-
-                //        // Build the request URI with the SAS, which gives us permissions to upload.
-                //        var uriWithAccess = blobUri + "?" + data.token;
-                //        var xhr = new XMLHttpRequest();
-                //        xhr.onerror = fail;
-                //        xhr.onloadend = uploadCompleted;
-                //        xhr.open("PUT", uriWithAccess);
-                //        xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
-                //        xhr.setRequestHeader('x-ms-blob-content-type', 'image/jpeg');
-                //        xhr.send(requestData);
-                //    }
-                //}
-
-
-                //var f = new File();
-
-                //f.name = "test2.jpg";
-                //f.localURL = imguri;
-                //if (window.File && window.FileReader && window.FileList && window.Blob) {
-                //    console.log("file api supported");
-                //} else {
-                //    console.log('The File APIs are not fully supported in this browser.');
-                //}
-                //var reader = new FileReader();
-                //var f;
-
-               
-               //$(reader).on("load", function () {
-               //     f = reader.result;
-               // }, false);
-
-               // if (imguri) {
-               //     reader.readAsDataURL(imguri);
-               // }
-               // console.log(f);
-
-
-               // var imgstr = dataURItoBlob(imguri)
+              
                 alert("got img");
-                alert(imguri)
+               // alert(imguri)
                 //createNewFileEntry(imguri)
 
               //  getFileEntry(imguri);
@@ -235,20 +149,49 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                         createNewFileEntry(imgUri);
                     });
                 }
-                blobService.createBlockBlobFromText('testcontainer',
-                   "test5.jpg",
-                    imguri,
-                    { contentSettings: { contentType: "image/jpeg" } },
-                    (error, result) => {
-                        if (error) {
-                            console.log(error)
-                            alert(error)
-                            // Handle blob error
-                        } else {
-                            console.log('Upload is successful');
-                            alert("image uploaded")
-                        }
-                    });
+
+                function dataURItoBlob(dataURI) {
+                    // convert base64 to raw binary data held in a string
+                    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+                    var byteString = atob(dataURI.split(',')[1]);
+
+                    // separate out the mime component
+                    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+                    // write the bytes of the string to an ArrayBuffer
+                    var ab = new ArrayBuffer(byteString.length);
+
+                    // create a view into the buffer
+                    var ia = new Uint8Array(ab);
+
+                    // set the bytes of the buffer to the correct values
+                    for (var i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+
+                    // write the ArrayBuffer to a blob, and you're done
+                    var blob = new Blob([ab], { type: mimeString });
+                    return blob;
+                   // return ab
+                }
+
+               
+
+
+                imguri = "data:image/jpeg;base64," + imguri;
+                var blobimg = dataURItoBlob(imguri);
+                var fileName = "test13.jpg"
+                console.log(blobimg)
+               var  uploadURI = blobUri + "/" + uData.container + "/" + fileName + "?" + data.token
+              
+               
+               var xhr = new XMLHttpRequest();
+               xhr.onerror = function (err) { console.log(err)};
+               xhr.onloadend = function () {console.log("img upload complete - xhr") };
+               xhr.open("PUT", uploadURI);
+               xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
+               xhr.setRequestHeader('x-ms-blob-content-type', 'image/jpeg');
+               xhr.send(blobimg);
 
 
                 function createNewFileEntry(imgUri) {
@@ -284,18 +227,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                     }, function (e) { console.log(e); alert("resolve error")});
                 }
 
-                //            blobService.createBlobSnapshot('testcontainer',
-                //                imguri,
-
-                //(error, result) => {
-                //    if (error) {
-                //        // Handle blob error
-                //        console.log(error)
-                //    } else {
-                //        console.log('Upload is successful');
-                //        console.log(result);
-                //    }
-                //});
+                
 
 
 
@@ -388,7 +320,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         function onSuccess(imageURI) {
             console.log("got img");
            // alert("got img")
-           // $(".img-wrapper").append('<img style="width:200px; height:100px;" src="' + imageURI + '" />')
+            $(".img-wrapper").append('<img style="width:200px; height:100px;" src="data:image/gif;base64,' + imageURI + '" />')
            // alert(imageURI)
           //  app.editTransactions.testBlob(imageURI);
             app.editTransactions.getSASToken(imageURI);
