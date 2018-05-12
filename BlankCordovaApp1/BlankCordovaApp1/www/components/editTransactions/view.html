@@ -17,14 +17,18 @@
 					<input type="date" data-role="datepicker" class="k-textbox" data-bind="value:transDate" />
 					<input type="text" class="k-textbox" data-bind="value:category" />
 					<input type="text" class="k-textbox" data-bind="value:amount" />
+
+					<input type="text" id="receiptId" class="k-textbox" data-bind="value:receiptId" />
+					<input type="checkbox" id="hasReceipt" data-bind="checked:hasReceipt" />
+
 				</div>
 				<div class="clear center">
 
 					<button class="add-new-trans km-button">add new</button>
 					<button class="update-trans km-button">update</button>
+					
 					<button class="get-receipt km-button">capture receipt</button>
-					<button data-role="button" data-click="app.editTransactions.testBlob" class="test km-button">upload</button>
-					<input type="file" class="get-file" id="fileinput"/>
+					
 				</div>
 
 				<div class="img-wrapper"></div>

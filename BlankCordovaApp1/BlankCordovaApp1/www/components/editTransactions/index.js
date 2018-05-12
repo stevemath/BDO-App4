@@ -8,15 +8,17 @@ app.editTransactions = kendo.observable({
         if (app.editTransactions.mode == "insert") {
             $(".add-new-trans").show();
             $(".update-trans").hide();
-
+            $(".get-receipt").hide();
 kendo.bind($("#transEditForm"), app.editTransactions.transData )
         }
 
         if (app.editTransactions.mode == "edit") {
             $(".add-new-trans").hide();
             $(".update-trans").show();
+            $(".get-receipt").show();
             kendo.bind($("#transEditForm"), app.editTransactions.editItem)
         }
+
         app.editTransactions.setupEvents();
 
       
@@ -34,6 +36,8 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         locale: "",
         transDate: new Date(),
         category: "",
+        receiptId: "",
+        hasReceipt:0
        
     },
     emptyTransData: {
@@ -42,6 +46,8 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         locale: "",
         transDate: new Date(),
         category: "",
+        receiptId: "",
+        hasReceipt: 0
 
     },
     mode:"insert",
@@ -82,23 +88,20 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         $(".get-receipt").off();
         $(".get-receipt").on("click", function (e) {
             e.preventDefault();
-            app.editTransactions.getReceipt()
+
+            var transId = app.editTransactions.editItem.id;
+            console.log(transId)
+            app.editTransactions.getReceipt(transId)
 
         })
 
 
-        $(".get-file").on("click", function () {
-           
-
-        })
    },
-    getSASToken: function (imguri) {
+    uploadWithToken: function (imguri, transId) {
 
         const account = {
             name: "bdoauth8fdb",
-            // name:"dgpo7itjj6n3yazfunctions",
-            // sas: "?sv=2017-07-29&ss=bfqt&srt=sco&sp=rwdlacup&se=2018-04-21T22:56:20Z&st=2018-04-18T14:56:20Z&spr=https,http&sig=NS%2Bj9Xev22DhVAjg%2BCzYAUARAOKghqTmhAUJ2F71qU8%3D"
-        };
+                  };
 
         var uData = { container: "testcontainer" }
         var blobUri = 'https://' + account.name + '.blob.core.windows.net';
@@ -112,13 +115,7 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                 blobService = AzureStorage.Blob.createBlobServiceWithSas(blobUri, "?" + data.token);
 
 
-              
-                alert("got img");
-               // alert(imguri)
-                //createNewFileEntry(imguri)
-
-              //  getFileEntry(imguri);
-
+            
                 function getFileEntry(imgUri) {
                     window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
 
@@ -175,19 +172,28 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
                    // return ab
                 }
 
-               
-
+              
 
                 imguri = "data:image/jpeg;base64," + imguri;
                 var blobimg = dataURItoBlob(imguri);
-                var fileName = "test13.jpg"
-                console.log(blobimg)
+                var fileName =  transId + ".jpg"
+                console.log(localStorage.uid )
                var  uploadURI = blobUri + "/" + uData.container + "/" + fileName + "?" + data.token
               
                
                var xhr = new XMLHttpRequest();
                xhr.onerror = function (err) { console.log(err)};
-               xhr.onloadend = function () {console.log("img upload complete - xhr") };
+               xhr.onloadend = function () {
+
+                   // update transaction
+                   console.log("img upload complete - xhr");
+                   $("#receiptId").val(fileName);
+                   $("#receiptId").trigger("change");
+                   $("#hasReceipt").prop("checked", true);
+                  
+                   $("#hasReceipt").trigger("change");
+                   app.dsTrans.sync();
+               };
                xhr.open("PUT", uploadURI);
                xhr.setRequestHeader('x-ms-blob-type', 'BlockBlob');
                xhr.setRequestHeader('x-ms-blob-content-type', 'image/jpeg');
@@ -237,76 +243,11 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         })
 
     },
-    testBlob: function (imguri) {
-
-      //  console.log(imguri);
-
-
-
-       // cFile = imguri.replace("blob:", "");
-       // cFile = imguri.replace("http", "file");
-
-       // console.log(cordova.file.dataDirectory)
-
-        //window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-        //navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
-        //    window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, function () {
-        //        console.log("success")
-        //        console.log(window.requestFileSystem);
-
-        //        window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
-        //            console.log("local")
-        //            console.log(fileEntry)
-
-        //        })
-        //    }, function () { console.log("error") });
-        //        console.log("file system")
-        //    }, function (e) {
-        //        console.log('Error', e);
-        //    });
-
-
-        //        window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, onFileSystemSuccess.bind(this), this.errorHandler);
-        //if (isPhoneGapApp) {
-        //    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess.bind(this), this.errorHandler);
-        //}
-        //else {
-        //    navigator.webkitPersistentStorage.requestQuota(1024 * 1024 * 1024, function (grantedBytes) {
-        //        window.webkitRequestFileSystem(LocalFileSystem.PERSISTENT, grantedBytes, onFileSystemSuccess.bind(this), this.errorHandler);
-        //        console.log("file system")
-        //    }, function (e) {
-        //        console.log('Error', e);
-        //    });
-        //}
-
-
-        //setInterval(function () {
-
-        //    console.log("test");
- 
-        //    window.resolveLocalFileSystemURL(imguri, function (fileEntry) {
-        //        fileEntry.file(function (file) {
-        //            console.log(file);
-        //            alert(file.name)
-        //        })
-        //    }), function (e) {
-        //        console.log(e)
-        //        console.log("error?")
-        //    }
-
-        //}, 200)
-           
-       // }, 200);
-       
-      
-
-
-    },
-    getReceipt: function () {
+  
+    getReceipt: function (transId) {
 
         console.log("get receipt");
-        alert("start camera")
-       
+      
         navigator.camera.getPicture(onSuccess, onFail, {
             quality: 30,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -320,16 +261,16 @@ kendo.bind($("#transEditForm"), app.editTransactions.transData )
         function onSuccess(imageURI) {
             console.log("got img");
            // alert("got img")
-            $(".img-wrapper").append('<img style="width:200px; height:100px;" src="data:image/gif;base64,' + imageURI + '" />')
+            $(".img-wrapper").append('<img style="height:150px;" src="data:image/jpeg;base64,' + imageURI + '" />')
            // alert(imageURI)
           //  app.editTransactions.testBlob(imageURI);
-            app.editTransactions.getSASToken(imageURI);
+            app.editTransactions.uploadWithToken(imageURI, transId);
 
         }
 
         function onFail(message) {
             console.log('Failed because: ' + message);
-            alert('Failed because: ' + message);
+            alert('Image capture failed because: ' + message);
         }
     }
    
